@@ -17,6 +17,7 @@ public record DadosAtualizacaoCliente(
         String cpf,
         @Past
         LocalDate dataNascimento,
+        String senha,
         @Valid
         DadosAtualizacaoEndereco endereco
 ) {
