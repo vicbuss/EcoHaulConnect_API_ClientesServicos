@@ -7,8 +7,6 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public record DadosAtualizacaoTransportador(
-        @NotNull
-        Long id,
         String nome,
         String telefone,
         String email,

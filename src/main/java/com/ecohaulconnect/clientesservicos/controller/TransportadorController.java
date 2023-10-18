@@ -6,8 +6,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -20,8 +22,15 @@ public class TransportadorController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroTransportador dadosTransportador) {
-        repository.save(new Transportador(dadosTransportador));
+    public ResponseEntity<DadosListagemTransportador> cadastrar(@RequestBody @Valid DadosCadastroTransportador dadosTransportador,
+                                                                UriComponentsBuilder uriBuilder) {
+        var transportador = new Transportador(dadosTransportador);
+
+        repository.save(transportador);
+
+        var uri = uriBuilder.path("/transportadores/{id}").buildAndExpand(transportador.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosListagemTransportador(transportador));
 
     }
 
@@ -31,30 +40,25 @@ public class TransportadorController {
         return ResponseEntity.ok(new DadosListagemTransportador(transportador));
     }
 
-    @GetMapping("/listartodos")
-    public Page<DadosListagemTransportador> listarTodos(Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemTransportador::new);
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemTransportador>> listarTodos(@PageableDefault(size = 10, sort = {"nome"})
+                                                              Pageable paginacao, @RequestParam(value = "ativo",
+                                                                defaultValue = "true") boolean isAtivo){
+
+        var page = repository.findAllByAtivo(paginacao, isAtivo).map(DadosListagemTransportador::new);
+        return ResponseEntity.ok(page);
 
     }
 
-    @GetMapping("/listarativos")
-    public Page<DadosListagemTransportador> listarAtivos(Pageable paginacao){
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemTransportador::new);
-
-    }
-
-    @GetMapping("/listarinativos")
-    public Page<DadosListagemTransportador> listarInativos(Pageable paginacao){
-        return repository.findAllByAtivoFalse(paginacao).map(DadosListagemTransportador::new);
-
-    }
-
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoTransportador dados){
-        var transportador = repository.getReferenceById(dados.id());
+    public ResponseEntity<DadosListagemTransportador> atualizar(@PathVariable Long id,
+                                                                @RequestBody @Valid DadosAtualizacaoTransportador dados){
+        var transportador = repository.getReferenceById(id);
 
         transportador.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosListagemTransportador(transportador));
 
     }
 

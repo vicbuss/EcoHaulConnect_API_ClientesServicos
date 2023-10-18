@@ -10,10 +10,9 @@ public record DadosListagemTransportador(
         String nome,
         String telefone,
         String email,
-        String Cpf,
+        String cpf,
         String cnh,
         LocalDate dataNascimento,
-        String senha,
         Boolean ativo,
         DadosListagemEndereco endereco) {
 
@@ -25,7 +24,6 @@ public record DadosListagemTransportador(
                 transportador.getCpf(),
                 transportador.getCnh(),
                 transportador.getDataNascimento(),
-                transportador.getSenha(),
                 transportador.getAtivo(),
                 new DadosListagemEndereco(transportador.getEndereco()));
     }

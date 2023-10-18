@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
     @Autowired
     private ClienteRepository repository;
@@ -24,7 +24,7 @@ public class ClienteController {
 
         repository.save(cliente);
 
-        var uri = uriBuillder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+        var uri = uriBuillder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DadosListagemCliente(cliente));
     }
