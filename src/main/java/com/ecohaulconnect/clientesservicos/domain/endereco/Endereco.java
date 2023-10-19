@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Table(name = "tb_enderecos")
-@Entity(name = "Endereco")
+@Entity(name = "endereco")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,25 +16,35 @@ public class Endereco {
     @SequenceGenerator(name = "sequence_id_enderecos", sequenceName = "sequence_enderecos")
     @Column(name = "id_endereco")
     private Long id;
+
     @Column(name = "nm_rua")
     private String logradouro;
+
     @Column(name = "nm_bairro")
     private String bairro;
+
     @Column(name = "nr_cep")
     private String cep;
+
     @Column(name = "nr_numero")
     private String numero;
+
     @Column(name = "nm_complemento")
     private String complemento;
+
     @Column(name = "nm_cidade")
     private String cidade;
+
     @Column(name= "ds_uf")
     @Enumerated(EnumType.STRING)
     private UF uf;
+
     @Column(name = "nr_lat")
     private Double latitude;
+
     @Column(name = "nr_long")
     private Double longitude;
+
     @Column(name = "st_ativo")
     private boolean ativo;
 

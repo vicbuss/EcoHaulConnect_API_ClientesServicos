@@ -1,6 +1,7 @@
 package com.ecohaulconnect.clientesservicos.domain.transportador;
 
 import com.ecohaulconnect.clientesservicos.domain.endereco.Endereco;
+import com.ecohaulconnect.clientesservicos.domain.servico.Servico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -8,9 +9,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "tb_transportadores")
-@Entity(name = "Transportador")
+@Entity(name = "transportador")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -47,8 +50,11 @@ public class Transportador {
     @Column(name = "st_ativo")
     private Boolean ativo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL) @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "transportador", cascade = CascadeType.ALL)
+    private List<Servico> servicos = new ArrayList<Servico>();
 
     public Transportador(DadosCadastroTransportador dadosTransportador) {
         this.ativo = true;
