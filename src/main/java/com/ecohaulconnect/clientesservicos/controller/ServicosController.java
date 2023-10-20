@@ -1,6 +1,7 @@
 package com.ecohaulconnect.clientesservicos.controller;
 
 import com.ecohaulconnect.clientesservicos.domain.cliente.ClienteRepository;
+import com.ecohaulconnect.clientesservicos.domain.endereco.CalculoDeProximidadeService;
 import com.ecohaulconnect.clientesservicos.domain.servico.DadosCadastroServico;
 import com.ecohaulconnect.clientesservicos.domain.servico.DadosListagemServico;
 import com.ecohaulconnect.clientesservicos.domain.servico.Servico;
@@ -9,6 +10,8 @@ import com.ecohaulconnect.clientesservicos.domain.transportador.TransportadorRep
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import java.util.List;
 
 @RestController
 @RequestMapping("/servicos")
@@ -67,5 +71,36 @@ public class ServicosController {
 
         page = servicoRepository.findAll(specification, paginacao).map(DadosListagemServico :: new);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/disponiveis")
+     public ResponseEntity<Page<DadosListagemServico>> listarDisponiveisPorTransportador (
+            @PageableDefault(size = 10, sort = "dataAgendamento") Pageable paginacao,
+            @RequestParam(value = "idTransportador") Long idTransportador) {
+
+        var transportador = transportadorRepository.getReferenceById(idTransportador);
+
+        Specification<Servico> specification = Specification.where((root, query, cb) -> cb.equal(root.get("ativo"), true));
+
+        Page<Servico> servicosPage = servicoRepository.findAll(specification, paginacao);
+
+        List<Servico> filteredServicosList = servicosPage.stream()
+                .filter(servico -> CalculoDeProximidadeService.filtrarServicosDentroDaArea(servico, transportador))
+                .toList();
+
+        PageRequest pageRequest = PageRequest.of(servicosPage.getPageable().getPageNumber(),
+                servicosPage.getPageable().getPageSize(), servicosPage.getPageable().getSort());
+
+        var page = new PageImpl<>(filteredServicosList, pageRequest, servicosPage.getTotalElements())
+                .map(DadosListagemServico :: new);
+
+        return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemServico> detalhar(@PathVariable Long id) {
+       var servico = servicoRepository.getReferenceById(id);
+
+       return ResponseEntity.ok(new DadosListagemServico(servico));
     }
 }

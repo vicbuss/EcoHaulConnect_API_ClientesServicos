@@ -50,6 +50,9 @@ public class Transportador {
     @Column(name = "st_ativo")
     private Boolean ativo;
 
+    @Column(name = "nr_raio_servico")
+    private Integer raioDeServicoEmKm;
+
     @ManyToOne(cascade = CascadeType.ALL) @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
@@ -65,6 +68,7 @@ public class Transportador {
         this.cnh = dadosTransportador.cnh();
         this.dataNascimento = dadosTransportador.dataNascimento();
         this.senha = dadosTransportador.senha();
+        this.raioDeServicoEmKm = dadosTransportador.raioDeServicoEmKm();
         this.endereco = new Endereco(dadosTransportador.endereco());
     }
 
@@ -90,6 +94,9 @@ public class Transportador {
         }
         if (dados.senha() != null) {
             this.senha = dados.senha();
+        }
+        if (dados.raioDeServicoEmKm() != null) {
+            this.raioDeServicoEmKm = dados.raioDeServicoEmKm();
         }
         if (dados.dadosAtualizacaoEndereco() != null) {
             this.endereco.atualizar(dados.dadosAtualizacaoEndereco());

@@ -14,5 +14,6 @@ public record DadosAtualizacaoTransportador(
         String cnh,
         LocalDate dataNascimento,
         String senha,
+        Integer raioDeServicoEmKm,
         DadosAtualizacaoEndereco dadosAtualizacaoEndereco) {
 }
