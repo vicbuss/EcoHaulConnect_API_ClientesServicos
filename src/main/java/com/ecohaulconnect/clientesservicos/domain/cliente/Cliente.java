@@ -89,4 +89,8 @@ public class Cliente {
         this.ativo = false;
         this.endereco.desativar();
     }
+
+    public void addServico(Servico servico) {
+        this.servicos.add(servico);
+    }
 }

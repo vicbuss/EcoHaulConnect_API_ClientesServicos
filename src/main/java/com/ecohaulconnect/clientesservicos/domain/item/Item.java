@@ -40,4 +40,14 @@ public class Item {
 
     @ManyToOne @JoinColumn(name = "id_servico", nullable = false)
     private Servico servico;
+
+    public Item(DadosCadastroItem dados, Servico servico) {
+        this.tipo = dados.tipo();
+        this.alturaEmCm = dados.alturaEmCm();
+        this.larguraEmCm = dados.larguraEmCm();
+        this.comprimentoEmCm = dados.comprimentoEmCm();
+        this.pesoEmGramas = dados.pesoEmGramas();
+        this.descricao = dados.descricao();
+        this.servico = servico;
+    }
 }

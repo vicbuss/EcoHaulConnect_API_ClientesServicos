@@ -41,7 +41,7 @@ public class Servico {
     @ManyToOne @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @ManyToOne @JoinColumn(name = "id_transportador", nullable = false)
+    @ManyToOne @JoinColumn(name = "id_transportador")
     private Transportador transportador;
 
     @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
@@ -55,4 +55,18 @@ public class Servico {
 
     @Column(name = "dt_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    public Servico(DadosCadastroServico dados, Cliente cliente) {
+        this.valor = dados.valor();
+        this.dataAgendamento = dados.dataAgendamento();
+        this.endereco = new Endereco(dados.endereco());
+        dados.itens().forEach(item -> this.itens.add(new Item(item, this)));
+        this.cliente = cliente;
+
+        this.ativo = true;
+
+        var creationDate = LocalDateTime.now();
+        this.dataCriacao = creationDate;
+        this.dataAtualizacao = creationDate;
+    }
 }
