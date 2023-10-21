@@ -95,4 +95,10 @@ public class Servico {
        dados.itens().forEach(item -> this.itens.add(new Item(item, this)));
 
     }
+
+    public void aceitar(Transportador transportador) {
+        this.transportador = transportador;
+
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 }

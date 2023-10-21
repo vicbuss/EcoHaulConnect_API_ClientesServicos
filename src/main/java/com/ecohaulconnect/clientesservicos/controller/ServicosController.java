@@ -113,4 +113,17 @@ public class ServicosController {
 
         return ResponseEntity.ok(new DadosListagemServico(servico));
     }
+
+    @PatchMapping("/aceitar/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemServico> aceitar (@PathVariable Long id, @RequestBody DadosAtivacaoServico dados) {
+
+        var servico = servicoRepository.getReferenceById(id);
+
+        var transportador = transportadorRepository.getReferenceById(dados.idTransportador());
+
+        servico.aceitar(transportador);
+
+        return ResponseEntity.ok(new DadosListagemServico(servico));
+    }
 }
