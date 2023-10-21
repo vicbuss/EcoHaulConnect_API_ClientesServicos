@@ -111,4 +111,10 @@ public class Servico {
 
         this.dataAtualizacao = LocalDateTime.now();
     }
+
+    public void desativar() {
+        this.ativo = false;
+
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 }

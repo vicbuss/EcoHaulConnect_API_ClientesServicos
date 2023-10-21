@@ -138,4 +138,14 @@ public class ServicosController {
 
         return ResponseEntity.ok(new DadosListagemServico(servico));
     }
+
+    @PatchMapping("/remover/{id}")
+    @Transactional
+    public ResponseEntity<Void> removerServico (@PathVariable Long id) {
+       var servico = servicoRepository.getReferenceById(id);
+
+       servico.desativar();
+
+       return ResponseEntity.noContent().build();
+    }
 }
