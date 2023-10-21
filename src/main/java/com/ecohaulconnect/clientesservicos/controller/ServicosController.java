@@ -78,7 +78,8 @@ public class ServicosController {
 
         var transportador = transportadorRepository.getReferenceById(idTransportador);
 
-        Specification<Servico> specification = Specification.where((root, query, cb) -> cb.equal(root.get("ativo"), true));
+        Specification<Servico> specification = Specification.where((root, query, cb) -> cb.and(
+                cb.equal(root.get("ativo"), true), cb.isNull(root.get("transportador"))));
 
         Page<Servico> servicosPage = servicoRepository.findAll(specification, paginacao);
 
@@ -116,13 +117,24 @@ public class ServicosController {
 
     @PatchMapping("/aceitar/{id}")
     @Transactional
-    public ResponseEntity<DadosListagemServico> aceitar (@PathVariable Long id, @RequestBody DadosAtivacaoServico dados) {
+    public ResponseEntity<DadosListagemServico> aceitar (@PathVariable Long id, @RequestBody DadosAtivacaoServico dados)
+            throws ActiveServiceException {
 
         var servico = servicoRepository.getReferenceById(id);
 
         var transportador = transportadorRepository.getReferenceById(dados.idTransportador());
 
         servico.aceitar(transportador);
+
+        return ResponseEntity.ok(new DadosListagemServico(servico));
+    }
+
+    @PatchMapping("/cancelar/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemServico> cancelar (@PathVariable Long id) {
+        var servico = servicoRepository.getReferenceById(id);
+
+        servico.cancelar();
 
         return ResponseEntity.ok(new DadosListagemServico(servico));
     }

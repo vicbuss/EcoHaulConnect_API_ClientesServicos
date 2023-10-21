@@ -96,8 +96,18 @@ public class Servico {
 
     }
 
-    public void aceitar(Transportador transportador) {
+    public void aceitar(Transportador transportador) throws ActiveServiceException {
+        if(this.transportador != null) {
+            throw new ActiveServiceException("Este serviço já foi aceito por um transportador");
+        }
+
         this.transportador = transportador;
+
+        this.dataAtualizacao = LocalDateTime.now();
+    }
+
+    public void cancelar() {
+        this.transportador = null;
 
         this.dataAtualizacao = LocalDateTime.now();
     }
