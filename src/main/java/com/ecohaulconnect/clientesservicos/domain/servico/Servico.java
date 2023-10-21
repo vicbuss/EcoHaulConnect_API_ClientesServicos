@@ -2,6 +2,7 @@ package com.ecohaulconnect.clientesservicos.domain.servico;
 
 import com.ecohaulconnect.clientesservicos.domain.cliente.Cliente;
 import com.ecohaulconnect.clientesservicos.domain.endereco.Endereco;
+import com.ecohaulconnect.clientesservicos.domain.exceptions.ActiveServiceException;
 import com.ecohaulconnect.clientesservicos.domain.item.Item;
 import com.ecohaulconnect.clientesservicos.domain.transportador.Transportador;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "tb_servicos")
 @Entity(name = "Servico")
@@ -68,5 +70,29 @@ public class Servico {
         var creationDate = LocalDateTime.now();
         this.dataCriacao = creationDate;
         this.dataAtualizacao = creationDate;
+    }
+
+    public void atualizar(DadosAtualizacaoServico dados) throws ActiveServiceException {
+        if (this.transportador != null) {
+            throw new ActiveServiceException("Serviço ativo não pode ser modificado");
+        }
+
+        this.valor = dados.valor();
+
+        this.dataAgendamento = dados.dataAgendamento();
+
+        this.endereco = endereco.atualizar(dados.endereco());
+
+        this.dataAtualizacao = LocalDateTime.now();
+
+        // Para possibilitar a inserção de novos itens e a remoção de outros,
+        // primeiro removemos os itens antigos da lista
+        // para depois adiciionar os itens novos
+
+       this.itens.forEach(Item::removerServico);
+       this.itens.clear();
+
+       dados.itens().forEach(item -> this.itens.add(new Item(item, this)));
+
     }
 }

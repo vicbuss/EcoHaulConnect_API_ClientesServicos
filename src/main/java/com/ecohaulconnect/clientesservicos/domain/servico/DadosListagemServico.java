@@ -12,6 +12,7 @@ import java.util.List;
 public record DadosListagemServico(
         Long id,
         Long idCliente,
+        Long idTransportador,
         BigDecimal valor,
         LocalDateTime dataAgendamento,
         DadosListagemEndereco endereco,
@@ -30,6 +31,7 @@ public record DadosListagemServico(
         this(
                 servico.getId(),
                 servico.getCliente().getId(),
+                servico.getTransportador() != null ? servico.getTransportador().getId() : null,
                 servico.getValor(),
                 servico.getDataAgendamento(),
                 new DadosListagemEndereco(servico.getEndereco()),

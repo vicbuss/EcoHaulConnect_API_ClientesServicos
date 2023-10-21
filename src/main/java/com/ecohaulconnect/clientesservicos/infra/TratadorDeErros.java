@@ -1,5 +1,6 @@
 package com.ecohaulconnect.clientesservicos.infra;
 
+import com.ecohaulconnect.clientesservicos.domain.exceptions.ActiveServiceException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,7 +22,10 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(
                 erros.stream().map(DadosErroValidacao::new).toList());
    }
-
+    @ExceptionHandler(ActiveServiceException.class)
+    public ResponseEntity tratarActiveServiceException(ActiveServiceException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
    private record DadosErroValidacao(String campo, String mensagem) {
         public DadosErroValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());

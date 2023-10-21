@@ -2,10 +2,8 @@ package com.ecohaulconnect.clientesservicos.controller;
 
 import com.ecohaulconnect.clientesservicos.domain.cliente.ClienteRepository;
 import com.ecohaulconnect.clientesservicos.domain.endereco.CalculoDeProximidadeService;
-import com.ecohaulconnect.clientesservicos.domain.servico.DadosCadastroServico;
-import com.ecohaulconnect.clientesservicos.domain.servico.DadosListagemServico;
-import com.ecohaulconnect.clientesservicos.domain.servico.Servico;
-import com.ecohaulconnect.clientesservicos.domain.servico.ServicoRepository;
+import com.ecohaulconnect.clientesservicos.domain.exceptions.ActiveServiceException;
+import com.ecohaulconnect.clientesservicos.domain.servico.*;
 import com.ecohaulconnect.clientesservicos.domain.transportador.TransportadorRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +100,17 @@ public class ServicosController {
        var servico = servicoRepository.getReferenceById(id);
 
        return ResponseEntity.ok(new DadosListagemServico(servico));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemServico> atualizar (@PathVariable Long id, @RequestBody DadosAtualizacaoServico dados)
+            throws ActiveServiceException {
+
+        var servico = servicoRepository.getReferenceById(id);
+
+        servico.atualizar(dados);
+
+        return ResponseEntity.ok(new DadosListagemServico(servico));
     }
 }

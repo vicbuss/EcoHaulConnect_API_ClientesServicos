@@ -38,7 +38,7 @@ public class Item {
     @Column(name = "ds_descricao")
     private String descricao;
 
-    @ManyToOne @JoinColumn(name = "id_servico", nullable = false)
+    @ManyToOne @JoinColumn(name = "id_servico")
     private Servico servico;
 
     public Item(DadosCadastroItem dados, Servico servico) {
@@ -49,5 +49,30 @@ public class Item {
         this.pesoEmGramas = dados.pesoEmGramas();
         this.descricao = dados.descricao();
         this.servico = servico;
+    }
+
+    public void atualizar(DadosAtualizacaoItem dados) {
+       if(dados.tipo() != null) {
+           this.tipo = dados.tipo();
+       }
+       if(dados.alturaEmCm() != null) {
+           this.alturaEmCm = dados.alturaEmCm();
+       }
+       if(dados.larguraEmCm() != null) {
+           this.larguraEmCm = dados.larguraEmCm();
+       }
+       if(dados.comprimentoEmCm() != null) {
+           this.comprimentoEmCm = dados.comprimentoEmCm();
+       }
+       if(dados.pesoEmGramas() != null) {
+           this.pesoEmGramas = dados.pesoEmGramas();
+       }
+       if(dados.descricao() != null) {
+           this.descricao = dados.descricao();
+       }
+    }
+
+    public void removerServico() {
+        this.servico = null;
     }
 }
