@@ -14,6 +14,7 @@ public record DadosListagemTransportador(
         String cnh,
         LocalDate dataNascimento,
         Boolean ativo,
+        Integer raioDeServicoEmKm,
         DadosListagemEndereco endereco) {
 
     public DadosListagemTransportador(com.ecohaulconnect.clientesservicos.domain.transportador.Transportador transportador){
@@ -25,6 +26,7 @@ public record DadosListagemTransportador(
                 transportador.getCnh(),
                 transportador.getDataNascimento(),
                 transportador.getAtivo(),
+                transportador.getRaioDeServicoEmKm(),
                 new DadosListagemEndereco(transportador.getEndereco()));
     }
 }
