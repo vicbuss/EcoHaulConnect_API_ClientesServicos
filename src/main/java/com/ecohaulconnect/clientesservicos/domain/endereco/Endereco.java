@@ -12,8 +12,8 @@ import lombok.*;
 @ToString
 public class Endereco {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_enderecos")
-    @SequenceGenerator(name = "sequence_id_enderecos", sequenceName = "sequence_enderecos")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tb_enderecos")
+    @SequenceGenerator(name = "seq_tb_enderecos", sequenceName = "seq_tb_enderecos", allocationSize = 1)
     @Column(name = "id_endereco")
     private Long id;
 
