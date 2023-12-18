@@ -22,6 +22,8 @@ public record DadosCadastroTransportador(
         LocalDate dataNascimento,
         @NotBlank
         String senha,
+        @NotBlank
+        String status,
         @NotNull @Positive
         Integer raioDeServicoEmKm,
         @NotNull

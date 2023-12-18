@@ -47,6 +47,9 @@ public class Transportador {
     @Column(name = "ds_senha")
     private String senha;
 
+    @Column(name = "st_status")
+    private String status;
+
     @Column(name = "st_ativo")
     private Boolean ativo;
 
@@ -68,6 +71,7 @@ public class Transportador {
         this.cnh = dadosTransportador.cnh();
         this.dataNascimento = dadosTransportador.dataNascimento();
         this.senha = dadosTransportador.senha();
+        this.status = dadosTransportador.status();
         this.raioDeServicoEmKm = dadosTransportador.raioDeServicoEmKm();
         this.endereco = new Endereco(dadosTransportador.endereco());
     }
@@ -94,6 +98,9 @@ public class Transportador {
         }
         if (dados.senha() != null) {
             this.senha = dados.senha();
+        }
+        if (dados.status() != null) {
+            this.senha = dados.status();
         }
         if (dados.raioDeServicoEmKm() != null) {
             this.raioDeServicoEmKm = dados.raioDeServicoEmKm();

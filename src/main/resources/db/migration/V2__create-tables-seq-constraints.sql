@@ -47,6 +47,7 @@ CREATE TABLE tb_transportadores(
     nm_transportador VARCHAR2(30) NOT NULL,
     nm_email VARCHAR2(100) NOT NULL,
     nr_cpf VARCHAR2(11) NOT NULL,
+    nr_cnh VARCHAR2(9) NOT NULL,
     nr_telefone VARCHAR2(11) NOT NULL,
     dt_nascimento DATE NOT NULL,
     ds_senha VARCHAR2(150) NOT NULL,
