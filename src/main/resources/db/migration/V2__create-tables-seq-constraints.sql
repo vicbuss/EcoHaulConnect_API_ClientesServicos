@@ -168,3 +168,22 @@ START WITH 1
 INCREMENT BY 1
 NOMAXVALUE
 NOCYCLE;
+
+--TB_DESCRICOES
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('01', 'st_status', 'EM ANALISE', 1, SYSTIMESTAMP);
+
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('02', 'st_status', 'APROVADO', 1, SYSTIMESTAMP);
+
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('03', 'st_status', 'REPROVADO', 1, SYSTIMESTAMP);
+
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('04', 'st_status', 'BANIDO', 1, SYSTIMESTAMP);
+
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('01', 'st_conclusao', 'CANCELADO', 1, SYSTIMESTAMP);
+
+INSERT INTO tb_descricoes (id_descricao, nm_atributo, nm_descricao, st_ativo, dt_atualizacao)
+VALUES ('02', 'st_conclusao', 'CONCLUIDO', 1, SYSTIMESTAMP);
