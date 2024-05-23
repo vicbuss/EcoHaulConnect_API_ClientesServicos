@@ -3,6 +3,7 @@ package com.ecohaulconnect.clientesservicos.domain.cliente;
 import com.ecohaulconnect.clientesservicos.domain.endereco.Endereco;
 import com.ecohaulconnect.clientesservicos.domain.servico.Servico;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
