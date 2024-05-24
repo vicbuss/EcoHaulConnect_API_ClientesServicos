@@ -37,6 +37,9 @@ public class Servico {
     @Column(name = "cd_confirmacao")
     private String codigoConfirmacao;
 
+    @Column(name = "ds_descricao")
+    private String descricao;
+
     @ManyToOne(cascade = CascadeType.ALL) @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
@@ -49,7 +52,7 @@ public class Servico {
     @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
     private List<Item> itens = new ArrayList<Item>();
 
-    @Column(name = "is_active")
+    @Column(name = "st_ativo")
     private boolean ativo;
 
     @Column(name = "dt_criacao")
@@ -61,6 +64,7 @@ public class Servico {
     public Servico(DadosCadastroServico dados, Cliente cliente) {
         this.valor = dados.valor();
         this.dataAgendamento = dados.dataAgendamento();
+        this.descricao = dados.descricao();
         this.endereco = new Endereco(dados.endereco());
         dados.itens().forEach(item -> this.itens.add(new Item(item, this)));
         this.cliente = cliente;
@@ -84,6 +88,8 @@ public class Servico {
         this.endereco = endereco.atualizar(dados.endereco());
 
         this.dataAtualizacao = LocalDateTime.now();
+
+        this.descricao = dados.descricao();
 
         // Para possibilitar a inserção de novos itens e a remoção de outros,
         // primeiro removemos os itens antigos da lista

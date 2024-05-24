@@ -17,6 +17,8 @@ public record DadosAtualizacaoServico(
        BigDecimal valor,
        @NotNull @Future
        LocalDateTime dataAgendamento,
+       @NotNull
+       String descricao,
        @NotNull @Valid
        DadosAtualizacaoEndereco endereco,
        @NotNull

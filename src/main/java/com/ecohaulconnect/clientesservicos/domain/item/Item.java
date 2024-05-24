@@ -1,11 +1,15 @@
 package com.ecohaulconnect.clientesservicos.domain.item;
 
+import com.ecohaulconnect.clientesservicos.domain.imagem.Imagem;
 import com.ecohaulconnect.clientesservicos.domain.servico.Servico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "tb_itens")
 @Entity(name = "Item")
@@ -38,6 +42,9 @@ public class Item {
     @Column(name = "ds_descricao")
     private String descricao;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<Imagem> imagens = new ArrayList<Imagem>();
+
     @ManyToOne @JoinColumn(name = "id_servico")
     private Servico servico;
 
@@ -48,6 +55,7 @@ public class Item {
         this.comprimentoEmCm = dados.comprimentoEmCm();
         this.pesoEmGramas = dados.pesoEmGramas();
         this.descricao = dados.descricao();
+        dados.imagens().forEach(imagem -> this.imagens.add(new Imagem(imagem, this)));
         this.servico = servico;
     }
 
@@ -70,6 +78,11 @@ public class Item {
        if(dados.descricao() != null) {
            this.descricao = dados.descricao();
        }
+
+       this.imagens.forEach(Imagem::removerItem);
+       this.imagens.clear();
+
+       dados.imagens().forEach(imagem -> this.imagens.add(new Imagem(imagem, this)));
     }
 
     public void removerServico() {
