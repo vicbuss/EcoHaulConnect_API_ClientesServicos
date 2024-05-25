@@ -1,0 +1,2 @@
+ALTER TABLE tb_transportadores
+ADD NR_CNH VARCHAR2(13) NOT NULL;

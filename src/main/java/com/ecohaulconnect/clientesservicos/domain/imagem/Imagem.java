@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Imagem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_imagens")
-    @SequenceGenerator(name = "sequence_id_imagens", sequenceName = "sq_imagens", allocationSize = 1)
+    @SequenceGenerator(name = "sequence_id_imagens", sequenceName = "SEQ_TB_IMAGENS", allocationSize = 1)
     @Column(name = "id_imagem")
     private Long id;
     @Column(name = "url_imagem")

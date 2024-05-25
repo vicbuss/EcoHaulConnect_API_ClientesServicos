@@ -21,8 +21,8 @@ import java.util.List;
 public class Transportador {
 
     @Id
-    @SequenceGenerator(name="transportador",sequenceName="sequence_transportadores",allocationSize=1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="sequence_id_transportador")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_transportador")
+    @SequenceGenerator(name = "sequence_id_transportador", sequenceName = "SEQ_TB_TRANSPORTADORES", allocationSize = 1)
     @Column(name = "id_transportador")
     private Long id;
 
@@ -53,7 +53,8 @@ public class Transportador {
     @Column(name = "nr_raio_servico")
     private Integer raioDeServicoEmKm;
 
-    @ManyToOne(cascade = CascadeType.ALL) @JoinColumn(name = "id_endereco")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @OneToMany(mappedBy = "transportador", cascade = CascadeType.ALL)

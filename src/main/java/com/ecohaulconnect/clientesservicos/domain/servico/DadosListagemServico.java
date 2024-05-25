@@ -19,6 +19,7 @@ public record DadosListagemServico(
         DadosListagemEndereco endereco,
         List<DadosListagemItem> itens,
         LocalDateTime dataCriacao,
+        LocalDateTime dataVencimento,
         LocalDateTime dataAtualizacao
 ) {
 
@@ -39,6 +40,7 @@ public record DadosListagemServico(
                 new DadosListagemEndereco(servico.getEndereco()),
                 dadosListagemItensFromItens(servico.getItens()),
                 servico.getDataCriacao(),
+                servico.getDataVencimento(),
                 servico.getDataAtualizacao()
                 );
     }

@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_servicos")
-    @SequenceGenerator(name = "sequence_id_servicos", sequenceName = "sq_servicos", allocationSize = 1)
+    @SequenceGenerator(name = "sequence_id_servicos", sequenceName = "SEQ_TB_SERVICOS", allocationSize = 1)
     @Column(name = "id_servico")
     private Long id;
 
@@ -33,6 +33,9 @@ public class Servico {
 
     @Column(name = "dt_agendamento")
     private LocalDateTime dataAgendamento;
+
+    @Column(name = "dt_vencimento")
+    private LocalDateTime dataVencimento;
 
     @Column(name = "cd_confirmacao")
     private String codigoConfirmacao;
@@ -64,6 +67,7 @@ public class Servico {
     public Servico(DadosCadastroServico dados, Cliente cliente) {
         this.valor = dados.valor();
         this.dataAgendamento = dados.dataAgendamento();
+        this.dataVencimento = this.dataAgendamento.plusDays(30);
         this.descricao = dados.descricao();
         this.endereco = new Endereco(dados.endereco());
         dados.itens().forEach(item -> this.itens.add(new Item(item, this)));
@@ -84,6 +88,7 @@ public class Servico {
         this.valor = dados.valor();
 
         this.dataAgendamento = dados.dataAgendamento();
+        this.dataVencimento = this.dataAgendamento.plusDays(30);
 
         this.endereco = endereco.atualizar(dados.endereco());
 

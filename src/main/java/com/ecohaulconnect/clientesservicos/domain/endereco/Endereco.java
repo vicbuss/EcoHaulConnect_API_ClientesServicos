@@ -13,7 +13,7 @@ import lombok.*;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_enderecos")
-    @SequenceGenerator(name = "sequence_id_enderecos", sequenceName = "sequence_enderecos")
+    @SequenceGenerator(name = "sequence_id_enderecos", sequenceName = "SEQ_TB_ENDERECOS", allocationSize = 1)
     @Column(name = "id_endereco")
     private Long id;
 
