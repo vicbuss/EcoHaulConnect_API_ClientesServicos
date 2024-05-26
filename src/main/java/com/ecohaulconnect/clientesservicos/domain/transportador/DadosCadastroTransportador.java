@@ -20,8 +20,6 @@ public record DadosCadastroTransportador(
         String cnh,
         @Past
         LocalDate dataNascimento,
-        @NotBlank
-        String senha,
         @NotNull @Positive
         Integer raioDeServicoEmKm,
         @NotNull

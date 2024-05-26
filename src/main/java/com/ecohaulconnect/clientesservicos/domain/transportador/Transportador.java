@@ -44,9 +44,6 @@ public class Transportador {
     @Column(name = "dt_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "ds_senha")
-    private String senha;
-
     @Column(name = "st_ativo")
     private Boolean ativo;
 
@@ -68,7 +65,6 @@ public class Transportador {
         this.cpf = dadosTransportador.cpf();
         this.cnh = dadosTransportador.cnh();
         this.dataNascimento = dadosTransportador.dataNascimento();
-        this.senha = dadosTransportador.senha();
         this.raioDeServicoEmKm = dadosTransportador.raioDeServicoEmKm();
         this.endereco = new Endereco(dadosTransportador.endereco());
     }
@@ -92,9 +88,6 @@ public class Transportador {
         }
         if (dados.dataNascimento() != null) {
             this.dataNascimento = dados.dataNascimento();
-        }
-        if (dados.senha() != null) {
-            this.senha = dados.senha();
         }
         if (dados.raioDeServicoEmKm() != null) {
             this.raioDeServicoEmKm = dados.raioDeServicoEmKm();

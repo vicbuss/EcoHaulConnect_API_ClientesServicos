@@ -6,7 +6,6 @@ CREATE TABLE tb_clientes (
     nr_telefone VARCHAR2(11) UNIQUE NOT NULL,
     nr_cpf VARCHAR2(11) UNIQUE NOT NULL,
     dt_nascimento DATE NOT NULL,
-    ds_senha VARCHAR2(150) NOT NULL,
 	st_ativo NUMBER(1,0) NOT NULL,
 	id_endereco NUMBER(19,0) NOT NULL
 );
@@ -50,7 +49,6 @@ CREATE TABLE tb_transportadores(
     nr_cpf VARCHAR2(11) NOT NULL,
     nr_telefone VARCHAR2(11) NOT NULL,
     dt_nascimento DATE NOT NULL,
-    ds_senha VARCHAR2(150) NOT NULL,
     st_status CHAR(2),
     st_ativo NUMBER(1,0) NOT NULL,
     nr_raio_servico NUMBER(10,0) NOT NULL,

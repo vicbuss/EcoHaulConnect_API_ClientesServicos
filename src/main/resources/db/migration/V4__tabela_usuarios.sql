@@ -1,0 +1,12 @@
+CREATE TABLE tb_usuarios (
+    id_usuario NUMBER(19,0) PRIMARY KEY,
+    nm_email VARCHAR2(100) UNIQUE NOT NULL,
+    ds_senha VARCHAR2(255) NOT NULL
+);
+
+-- SEQ tb_usuarios
+CREATE SEQUENCE seq_tb_usuarios
+START WITH 1
+INCREMENT BY 1
+NOMAXVALUE
+NOCYCLE;
