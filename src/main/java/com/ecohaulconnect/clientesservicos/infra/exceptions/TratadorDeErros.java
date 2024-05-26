@@ -1,4 +1,4 @@
-package com.ecohaulconnect.clientesservicos.infra;
+package com.ecohaulconnect.clientesservicos.infra.exceptions;
 
 import com.ecohaulconnect.clientesservicos.domain.exceptions.ActiveServiceException;
 import jakarta.persistence.EntityNotFoundException;

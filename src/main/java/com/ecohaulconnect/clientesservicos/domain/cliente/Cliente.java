@@ -39,9 +39,6 @@ public class Cliente {
     @Column(name = "dt_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "ds_senha")
-    private String senha;
-
     @ManyToOne(cascade = CascadeType.ALL) @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
@@ -56,7 +53,6 @@ public class Cliente {
         this.telefone = dados.telefone();
         this.email = dados.email();
         this.cpf = dados.cpf();
-        this.senha = dados.senha();
         this.dataNascimento = dados.dataNascimento();
         this.endereco = new Endereco(dados.endereco());
         this.ativo = true;
@@ -77,9 +73,6 @@ public class Cliente {
         }
         if(dados.dataNascimento() != null) {
             this.dataNascimento = dados.dataNascimento();
-        }
-        if(dados.senha() != null) {
-            this.senha = dados.senha();
         }
         if(dados.endereco() != null) {
             this.endereco = this.endereco.atualizar(dados.endereco());

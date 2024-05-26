@@ -17,8 +17,6 @@ public record DadosCadastroCliente(
         String cpf,
         @Past
         LocalDate dataNascimento,
-        @NotBlank
-        String senha,
         @NotNull @Valid
         DadosCadastroEndereco endereco
 ) {
