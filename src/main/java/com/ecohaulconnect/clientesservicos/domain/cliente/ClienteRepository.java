@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findAllByAtivo(Pageable paginacao, boolean isAtivo);
+
+    Cliente findByEmail(String email);
 }
