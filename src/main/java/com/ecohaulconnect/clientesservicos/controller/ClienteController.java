@@ -29,6 +29,13 @@ public class ClienteController {
         return ResponseEntity.created(uri).body(new DadosListagemCliente(cliente));
     }
 
+    @PostMapping("/email")
+    public ResponseEntity<DadosListagemCliente> listarPorEmail (@RequestBody DadosListagemEmail dados) {
+        var cliente = repository.findByEmail(dados.email());
+
+        return ResponseEntity.ok(new DadosListagemCliente(cliente));
+    }
+
     @GetMapping
     public ResponseEntity<Page<DadosListagemCliente>> listar (@PageableDefault(size = 10, sort = {"nome"})
                                                               Pageable paginacao, @RequestParam(value = "ativo",
