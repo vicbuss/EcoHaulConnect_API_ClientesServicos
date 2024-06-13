@@ -18,6 +18,7 @@ public record DadosListagemServico(
         String descricao,
         DadosListagemEndereco endereco,
         List<DadosListagemItem> itens,
+        Boolean ativo,
         LocalDateTime dataCriacao,
         LocalDateTime dataVencimento,
         LocalDateTime dataAtualizacao
@@ -39,6 +40,7 @@ public record DadosListagemServico(
                 servico.getDescricao(),
                 new DadosListagemEndereco(servico.getEndereco()),
                 dadosListagemItensFromItens(servico.getItens()),
+                servico.isAtivo(),
                 servico.getDataCriacao(),
                 servico.getDataVencimento(),
                 servico.getDataAtualizacao()
